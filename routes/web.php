@@ -23,5 +23,12 @@ $router->group(['prefix' => 'api/v1'], function () use ($router) {
 
     $router->post('login', 'Auth\AuthController@login');
 
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        $router->group(['prefix' => 'delivery'], function () use ($router) {
+            $router->post('create', 'Delivery\DeliveryController@create');
+            $router->get('deliveries', 'Delivery\DeliveryController@getDeliveries');
+            $router->get('delivery', 'Delivery\DeliveryController@getDelivery');
+        });
 
+    });
 });
